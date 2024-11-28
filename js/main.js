@@ -1,135 +1,309 @@
-/* funciones */
+// ================== Declaracion de objetos ================== //
+
+// Constructor
+
+class Producto{
+    constructor(nombre, precio, descripcion = "Sin descripcion", stock = true) {
+            this.nombre= nombre;
+            this.precio = precio;
+            this.stock = stock;
+            this.descripcion = descripcion;
+    }
+    
+    vendido(){
+        this.stock = false;
+    }
+}
+
+
+//Creando objetos de prueba
+
+const producto1 = new Producto ("Espejo", 30000);
+const producto2 = new Producto ("Vaso", 2000);
+const producto3 = new Producto ("Cuchillo", 1500);
+const producto4 = new Producto ("Tenedor", 1400);
+const producto5 = new Producto ("Plato", 4000);
+
+// Creamos el array con los productos disponibles
+
+let productosDisponibles = [producto1, producto2, producto3, producto4, producto5];
+
+// Creamos el carrito del usuario
+
+let carrito = [];
+
+
+
+
+// ================== Funciones ================== //
 
 let nombre = prompt("Ingrese su nombre:");
+
 
 function inicioMenu (nombre) {
 
     while(true){
     
 
-    let opcionElegida = parseInt(prompt("Hola " + nombre + "! ingrese el numero de opcion que desea realizar: 1. Calcular monto total de la compra a realizar | 2. Calcular tiempo de envio segun localidad | 3. Consultar precio de un producto especifico "))
+    let opcionElegida = parseInt(prompt("Hola " + nombre + "! ingrese el numero de opcion que desea realizar: 1. Ingresar modo Administrador  | 2. Ingresar modo usuario | 0. Salir"))
 
     
-    if((opcionElegida < 1) || (opcionElegida > 3)){
+    if((opcionElegida < 0) || (opcionElegida > 2)){
         alert("numero de opcion no valida. Ingrese el numero nuevamente.")}
 
     else{
 
     switch(opcionElegida){
         case 1:
-            montoTotal();
+            menuAdministrador(nombre);
             break;
         case 2:
-            calcularTiempoCompra();
+            menuUsuario(nombre);
             break;
-        case 3: 
-            precioItem();
-            break;
-    }
-    }
-    }
-}
-
-function montoTotal(){
-
-    let sumaTotal=0;
-    let precioProductoActual = 0;
-
-    while(precioProductoActual != "fin"){
-
-        precioProductoActual= prompt("Ingrese el valor del producto (para finalizar la suma ingrese la palabra fin):");
-        console.log(parseFloat(precioProductoActual))
-
-        if(isNaN(parseFloat(precioProductoActual)) && precioProductoActual != "fin"){
-           alert("Ingreso una respuesta no valida. Intentelo nuevamente.")
-        }
-        else{
-            if(precioProductoActual!= "fin"){
-            console.log(precioProductoActual)
-            sumaTotal+=parseFloat(precioProductoActual)
-        }}
+        case 0:
+            return;
     }
 
-    let verificacion = prompt("LA suma total de los productos, da un valor de $" + sumaTotal + ". desea realizar otra operacion de suma de montos? Y/N")
-
-    /* la verificacion, pense en hacerla con una funcion, pero como el if te envia a la misma funcion nuevamente , no encontre la forma de generalizarlo par una funcion*/
-
-    if(verificacion == "Y" || verificacion == "YES" || verificacion == "y" || verificacion == "yes" || verificacion == "si"){
-        montoTotal();
-    }
-    else{
-        alert("Volvera al menu inicial.")
-    }
-
-}
-
-function calcularTiempoCompra(){
-
-    let localidad = prompt("ingrese a la localidad donde quiere realizar el pedido:");
-
-    /* pense en hacerlo con un switch, pero se hacia largo, ya que necesito tener encuenta las mayusculas y minisculas y se ponia muy largo */ 
-
-    if(localidad == "Buenos Aires" || localidad == "buenos aires"){
-        alert("El costo de envio es de $3000")
-    }
-    else{
-        alert("El costo de envio es de $7000")
-    }
-
-    let verificacion = prompt("desea realizar otra operacion de calculo de envio? Y/N");
     
-    if(verificacion == "Y" || verificacion == "YES" || verificacion == "y" || verificacion == "yes" || verificacion == "si"){
-        calcularTiempoCompra();
     }
-    else{
-        alert("Volvera al menu inicial.")
+    }
+}
+
+// Menu Administrador
+
+function menuAdministrador(nombre){
+
+    while(true){
+        let opcionElegida = parseInt(prompt("Hola " + nombre + "! ingrese el numero de opcion que desea realizar: 1. Crear un nuevo producto | 2. Modificar un producto | 3. Eliminar un producto | 0. Salir" ))
+
+        if((opcionElegida < 0) || (opcionElegida > 3)){
+            alert("numero de opcion no valida. Ingrese el numero nuevamente.")}
+    
+        else{
+            switch(opcionElegida){
+                case 1:
+                    nuevoProductoStock();
+                    break;
+                case 2:
+                    modificarProductoStock();
+                    break;
+                case 3:
+                    eliminarProductoStock();
+                    break;
+                case 0:
+                    return;
+            }
+        }
     }
 
 }
 
-function precioItem(){
+// Menu Usuario
 
-    let repetir=false;
+function menuUsuario(nombre){
+
+    while(true){
+    
+
+        let opcionElegida = parseInt(prompt("Hola " + nombre + "! ingrese el numero de opcion que desea realizar: 1. Ver productos | 2. Agregar productos al carrito | 3. eliminar productos del carrito | 4. Calcular total del carrito | 5. Visualizar carrito | 0. salir"))
+    
+        
+        if((opcionElegida < 0) || (opcionElegida > 5)){
+            alert("numero de opcion no valida. Ingrese el numero nuevamente.")}
+    
+        else{
+    
+        switch(opcionElegida){
+            case 1:
+                mostrarProductos();
+                break;
+            case 2:
+                agregarProductosCarrito();
+                break;
+            case 3: 
+                eliminarProductosCarrito();
+                break;
+            case 4: 
+                calcularPrecioCarrito();
+                break;
+            case 5: 
+                visualizarCarrito();
+                break;
+            case 0: 
+                return;
+        }
+        }
+        }
+}
+
+// Funciones Menu Administrador
+
+function nuevoProductoStock() {
+     
+    while(true){
+        let nombre = prompt("Ingrese el nombre del nuevo producto:" )
+        let precio = parseFloat(prompt("Ingrese el precio del producto:"))
+        let descripcion = prompt("Ingrese una descripcion al producto (OPCIONAL):")
+
+        const producto = new Producto (nombre, precio, descripcion);
+
+        productosDisponibles.push(producto);
+
+        let opcion = prompt("Producto creado. Desea crear otro producto? Y/N");
+
+        if (opcion === "N")
+            break;
+    }
+
+}
+
+function modificarProductoStock() {
+
+    let producto;
+
+    while(true){
 
     do{
-        producto = prompt("Ingrese el nombre exacto en minusculas del producto que quiere averiaguar el precio:");
-        repetir=false;
-    switch(producto){
-        case 'espejo':
-            alert("el precio es de : $17000");
-        break;
+    const nombreProductoModificar= prompt("Ingrese nombre del producto a modificar:")
 
-        case 'camino de mesa':
-            alert("el precio es de : $9000");
-        break;
+    producto = productosDisponibles.find( (el) => {return el.nombre.toLowerCase() === nombreProductoModificar.toLowerCase() })
 
-        case 'porta masetas':
-        case 'decoracion de pared':
-            alert("el precio es de : $8000");
-        break;
-
-        case 'bolso de mano':
-            alert("el precio es de : $12000");
-        break;
-        default:
-            alert("Producto inexistente. Intente nuevamente.");
-            repetir=true;
-            break;
-    }
-    }while(repetir)
-    
-    let verificacion = prompt("desea realizar otra consulta de precio? Y/N");
-    
-    if(verificacion == "Y" || verificacion == "YES" || verificacion == "y" || verificacion == "yes" || verificacion == "si"){
-        precioItem();
-    }
+    if(producto.length === 0)
+        alert ("El producto no existe")
     else{
-        alert("Volvera al menu inicial.")
+        break;
+    }
+    }while(true)
+
+    const nuevoPrecio = parseFloat (prompt("Ingrese nuevo precio:"))
+    const nuevadescripcion =prompt("Ingrese nueva descripcion:")
+
+    producto.precio = nuevoPrecio;
+    producto.descripcion= nuevadescripcion;
+
+    let opcion = prompt("Producto Modificado. Desea modificar otro producto? Y/N");
+
+    if (opcion === "N")
+        break;
+    }   
+}
+
+function eliminarProductoStock(){
+
+    let producto;
+
+    while(true){
+
+        do{
+        const nombreProductoModificar= prompt("Ingrese nombre del producto a eliminar:")
+    
+        producto = productosDisponibles.find( (el) => {return el.nombre.toLowerCase() === nombreProductoModificar.toLowerCase() })
+    
+        if(producto === undefined)
+            alert ("El producto no existe")
+        else{
+            break;
+        }
+        }while(true)
+    
+        producto.vendido();         //borrado logico
+    
+        let opcion = prompt("Producto Eliminado. Desea eliminar otro producto? Y/N");
+    
+        if (opcion === "N")
+            break;
+        }  
+
+}
+
+// Funciones Menu Usuario
+
+function mostrarProductos(){
+    
+    let productosStock = productosDisponibles.filter( (el) => el.stock == true )
+
+    console.log(productosStock);
+
+}
+
+function agregarProductosCarrito(){
+    
+    let producto;
+
+    while(true){
+
+        do{
+        const nombreProductoModificar= prompt("Ingrese nombre del producto a agregar:")
+    
+        producto = productosDisponibles.find( (el) => {return el.nombre.toLowerCase() === nombreProductoModificar.toLowerCase() })
+    
+        if(producto === undefined)
+            alert ("El producto no existe")
+        else{
+            break;
+        }
+        }while(true)
+    
+        carrito.push(producto);
+    
+        let opcion = prompt("Producto Agregado. Desea agregar otro producto? Y/N");
+    
+        if (opcion === "N")
+            break;
+           
+    }
+}
+
+function eliminarProductosCarrito(){
+    
+    while(true){
+
+        do{
+        const nombreProductoModificar= prompt("Ingrese nombre del producto a eliminar del carrito:")
+    
+        const indexProducto = carrito.findIndex((el) => el.nombre.toLowerCase() == nombreProductoModificar);
+
+           
+        if (indexProducto !== -1) {
+            carrito.splice(indexProducto, 1); // Elimina el objeto en ese índice
+        }
+        else{
+            break;
+        }
+        }while(true)
+    
+    
+        let opcion = prompt("Producto eliminado. Desea eliminar otro producto? Y/N");
+    
+        if (opcion === "N")
+            break;
+           
     }
 
 }
 
+function calcularPrecioCarrito(){
 
-/* Script */
+    let total = carrito.reduce( (acc,el) => acc + el.precio, 0)
+    total *= 1.21;
+
+    alert("El precio total + IVA es de $" + total + ".")
+    
+}
+
+function visualizarCarrito(){
+
+    console.log(carrito);
+    
+}
+//Funciones Axuiliares
+
+
+
+// ================== Inicializacion de Script ================== //
+
+console.log(productosDisponibles)
 
 inicioMenu(nombre);
+
+console.log(productosDisponibles)
