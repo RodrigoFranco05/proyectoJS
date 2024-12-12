@@ -1,0 +1,140 @@
+.ocultar{
+    visibility: hidden;
+    display: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Itim",sans-serif; 
+}
+  
+body {
+    background-color: #eded7cc2;
+    text-align: center; 
+}
+  
+main {
+    justify-content: center; 
+}
+
+#seccionPrincipal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#articuloPrincipal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(198, 198, 198);
+    width:70%;
+    min-width: 400px;
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+h1{
+    margin-top: 100px;
+    margin-bottom: 70px;
+    background-color: rgb(198, 198, 198);
+    padding:7px 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(163, 163, 163);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+h2{
+    margin: 50px 0 30px;
+    background-color: rgba(0, 0, 0,0.3);
+    width: 100%;
+    padding: 15px 0;
+}
+
+.divProductos{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: solid 1px black;
+    border-radius: 16px;
+    margin: 10px;
+
+}
+
+  
+table{
+    color:black;
+    font-size: 14px;
+    background-color: rgba(139, 139, 139, 0.664);
+    border-radius: 16px;
+    table-layout: fixed;
+    border-collapse: collapse;
+  
+  }
+  
+  thead{
+    background-color: rgb(55, 71, 92);
+    border-radius: 16px;
+    color: white;
+  }
+  
+  
+  th{
+    padding: 15px 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  th:first-child{
+    border-radius: 16px 0 0 0;
+  }
+  th:last-child{
+    border-radius: 0 16px 0 0;
+  }
+  
+  td{
+    padding:15px;
+    border-bottom: solid 1px rgba(255,255,255,0.4);
+  }
+
+  tr:nth-child(2n){
+    background-color: rgba(235, 235, 235, 0.664);
+  }
+  
+  tbody tr:hover{
+    background-color: rgb(14, 32, 56, 0.2);
+  }
+ 
+  tbody tr:last-child td:last-child{
+    border-radius: 0px 0px 16px;
+  }
+  tbody tr:last-child td:first-child{
+    border-radius: 0 0 0 16px;
+  }
+
+
+button{
+    font-family: "Raleway", sans-serif;
+    
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    background-color: rgb(55, 71, 92);
+    padding: 10px;
+}
+
+button:hover{
+    background-color: rgb(75, 82, 90);
+    background-color: transparent;
+    color: rgb(75, 82, 90);
+}
+
+#agregarProducto{
+    margin: 20px
+}
+
+div{
+    margin:20px;
+}
