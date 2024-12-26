@@ -110,24 +110,19 @@ function getProductos () {
     peticionProductos.then( (response) => {
         return response.json()
     }).then( (json) => {
-        console.log(json)
         datosProductosStorage=json
         productosDisponibles=datosProductosStorage;
-        console.log("d")
         actualizarLS()
         renderizarTable()
     })
 }
 
-function postProductos(){
-
-}
 
 //Funciones Axuiliares
 
 function renderizarTable(){
 
-    console.log(productosDisponibles)
+    
     tbody.innerHTML="";
 
     let i=0;
@@ -161,8 +156,5 @@ function actualizarLS(){
 
 renderizarTable();
 
-console.log("final")
-
-//inicioMenu(nombre);                           //***Obsoleto , despues se actualizara
 
 
