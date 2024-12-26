@@ -1,0 +1,38 @@
+[
+    {
+      "nombre": "Espejo",
+      "precio": 30000,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    },
+    {
+      "nombre": "Vaso",
+      "precio": 2000,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    },
+    {
+      "nombre": "Cuchillo",
+      "precio": 1500,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    },
+    {
+      "nombre": "Tenedor",
+      "precio": 1400,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    },
+    {
+      "nombre": "Plato",
+      "precio": 4000,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    },
+    {
+      "nombre": "Portalampara",
+      "precio": 5400,
+      "stock": true,
+      "descripcion": "Sin descripcion"
+    }
+  ]

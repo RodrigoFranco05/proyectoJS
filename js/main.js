@@ -19,22 +19,10 @@ class Producto{
 let productosDisponibles=[];
 
 const datosProductos= localStorage.getItem("productosDisponibles")
-const datosProductosStorage=JSON.parse(datosProductos);
+let datosProductosStorage=JSON.parse(datosProductos);
 
-if(datosProductosStorage == null){                 //para la primera vez que se ejecuta en el ordenador
-
-//Creando objetos de prueba
-
-const producto1 = new Producto ("Espejo", 30000);
-const producto2 = new Producto ("Vaso", 2000);
-const producto3 = new Producto ("Cuchillo", 1500);
-const producto4 = new Producto ("Tenedor", 1400);
-const producto5 = new Producto ("Plato", 4000);
-
-// Creamos el array con los productos disponibles
-
-productosDisponibles = [producto1, producto2, producto3, producto4, producto5];
-
+if ((datosProductosStorage == null) || (datosProductosStorage.length == 0)){        //Se utilisa el Local storage mientras haya datos, en caso que se hayan borrado todos los articulos o sea la primera vez que se inicia, hace un fetch al Json(API)
+    getProductos()
 }else{
     productosDisponibles=datosProductosStorage;
 }
@@ -52,6 +40,35 @@ let tbla= document.getElementById("tablaProductos");
 let divProd = document.getElementById("articuloPrincipal");
 
 let agregarProductos= document.getElementById("agregarProducto");
+
+// ================== Alertas (Toastify)================== //
+
+const alertaProductoCreado = Toastify({
+    text: "Producto agregado",
+    duration: 3000,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "left", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right,rgb(48, 182, 68),rgb(121, 182, 130)",
+    },
+    onClick: function(){} // Callback after click
+  })
+
+const alertaProductoEliminado = Toastify({
+    text: "Producto eliminado",
+    duration: 3000,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "left", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right,rgb(180, 59, 59),rgb(176, 133, 133))",
+    },
+    onClick: function(){} // Callback after click
+  })
+
 
 // ================== Funciones ================== //
 
@@ -84,10 +101,31 @@ agregarProductos.addEventListener("click", (e)=> {
     
 })
 
+function getProductos () {
+    
+    const peticionProductos= fetch("../productos.json");
+
+    peticionProductos.then( (response) => {
+        return response.json()
+    }).then( (json) => {
+        console.log(json)
+        datosProductosStorage=json
+        productosDisponibles=datosProductosStorage;
+        console.log("d")
+        actualizarLS()
+        renderizarTable()
+    })
+}
+
+function postProductos(){
+    
+}
+
 //Funciones Axuiliares
 
 function renderizarTable(){
 
+    console.log(productosDisponibles)
     tbody.innerHTML="";
 
     let i=0;
@@ -120,4 +158,8 @@ function actualizarLS(){
 
 renderizarTable();
 
+console.log("final")
+
 //inicioMenu(nombre);                           //***Obsoleto , despues se actualizara
+
+
