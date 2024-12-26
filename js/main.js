@@ -95,9 +95,11 @@ agregarProductos.addEventListener("click", (e)=> {
         actualizarLS();
         renderizarTable();
         itemAgregar.remove();
+        alertaProductoCreado.showToast()
 
         agregarProductos.className="";
     })
+    
     
 })
 
@@ -118,7 +120,7 @@ function getProductos () {
 }
 
 function postProductos(){
-    
+
 }
 
 //Funciones Axuiliares
@@ -141,6 +143,7 @@ function renderizarTable(){
                 productosDisponibles.splice(index, 1); 
                 actualizarLS();
                 renderizarTable(); 
+                alertaProductoEliminado.showToast()
             });
         });
     }
